@@ -23,13 +23,12 @@ public:
         return os;
     }
 
-    // Метод для нахождения пересечения двух отрезков на координатной прямой
     static optional<LineSegment> intersect(const LineSegment& seg1, const LineSegment& seg2) {
         double max_start = max(seg1.x, seg2.x);
         double min_end = min(seg1.y, seg2.y);
 
         if (max_start <= min_end) {
-            return LineSegment(max_start, min_end); // Возвращаем пересечение как новый отрезок
+            return LineSegment(max_start, min_end);
         }
         return nullopt; 
     }
