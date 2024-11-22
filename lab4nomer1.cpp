@@ -33,9 +33,6 @@ public:
         return nullopt; 
     }
 
-
-    double getStart() const { return x; }
-    double getEnd() const { return y; }
 };
 
 int main() {
