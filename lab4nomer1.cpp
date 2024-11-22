@@ -5,28 +5,28 @@ using namespace std;
 
 class LineSegment {
 private:
-    double x1, x2;
+    double x, y;
 
 public:
-    LineSegment() : x1(0), x2(1) {}
+    LineSegment() : x(0), y(1) {}
 
-    LineSegment(double start, double end) : x1(start), x2(end) {
-        if (x1 > x2) {
-            swap(x1, x2);
+    LineSegment(double start, double end) : x(start), y(end) {
+        if (x > y) {
+            swap(x, y);
         }
     }
-    LineSegment(const LineSegment& other) : x1(other.x1), x2(other.x2) {}
+    LineSegment(const LineSegment& other) : x(other.x), y(other.y) {}
 
     // Перегрузка оператора вывода для отображения отрезка
     friend ostream& operator<<(ostream& os, const LineSegment& segment) {
-        os << "Отрезок: [" << segment.x1 << ", " << segment.x2 << "]";
+        os << "Отрезок: [" << segment.x << ", " << segment.y << "]";
         return os;
     }
 
     // Метод для нахождения пересечения двух отрезков на координатной прямой
     static optional<LineSegment> intersect(const LineSegment& seg1, const LineSegment& seg2) {
-        double max_start = max(seg1.x1, seg2.x1);
-        double min_end = min(seg1.x2, seg2.x2);
+        double max_start = max(seg1.x, seg2.x);
+        double min_end = min(seg1.y, seg2.y);
 
         if (max_start <= min_end) {
             return LineSegment(max_start, min_end); // Возвращаем пересечение как новый отрезок
@@ -35,8 +35,8 @@ public:
     }
 
 
-    double getStart() const { return x1; }
-    double getEnd() const { return x2; }
+    double getStart() const { return x; }
+    double getEnd() const { return y; }
 };
 
 int main() {
