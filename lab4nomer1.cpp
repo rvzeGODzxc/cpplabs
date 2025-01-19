@@ -1,5 +1,4 @@
 #include <iostream>
-#include <optional>
 
 using namespace std;
 
@@ -23,16 +22,18 @@ public:
         return os;
     }
 
-    static optional<LineSegment> intersect(const LineSegment& seg1, const LineSegment& seg2) {
-        double max_start = max(seg1.x, seg2.x);
-        double min_end = min(seg1.y, seg2.y);
+    // Метод для проверки пересечения отрезков и возврата отрезка пересечения
+    bool intersect(const LineSegment& seg2, LineSegment& intersection) const {
+        double max_start = max(x, seg2.x);
+        double min_end = min(y, seg2.y);
 
         if (max_start <= min_end) {
-            return LineSegment(max_start, min_end);
+            intersection = LineSegment(max_start, min_end);  // Сохраняем отрезок пересечения
+            return true;  // Пересекаются
+        } else {
+            return false;  // Не пересекаются
         }
-        return nullopt; 
     }
-
 };
 
 int main() {
@@ -48,9 +49,9 @@ int main() {
     cout << "Первый отрезок: " << seg1 << endl;
     cout << "Второй отрезок: " << seg2 << endl;
 
-    auto intersection = LineSegment::intersect(seg1, seg2);
-    if (intersection) {
-        cout << "Отрезки пересекаются. Пересечение: " << *intersection << endl;
+    LineSegment intersection(0, 0);  // Объект для хранения пересечения
+    if (seg1.intersect(seg2, intersection)) {
+        cout << "Отрезки пересекаются. Пересечение: " << intersection << endl;
     } else {
         cout << "Отрезки не пересекаются." << endl;
     }
